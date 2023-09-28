@@ -6,15 +6,39 @@ Console.OutputEncoding = System.Text.Encoding.UTF8;
 decimal precoInicial = 0;
 decimal precoPorHora = 0;
 
-Console.WriteLine("Seja bem vindo ao sistema de estacionamento!\n" +
-                  "Digite o preço inicial:");
-precoInicial = Convert.ToDecimal(Console.ReadLine());
+Console.WriteLine("Seja bem vindo ao sistema de estacionamento!");
 
-Console.WriteLine("Agora digite o preço por hora:");
-precoPorHora = Convert.ToDecimal(Console.ReadLine());
+while (true) // Loop para obter o preço inicial valído
+{
+    try
+    {
+        Console.Write("\nDigite o preço inicial: ");
+        precoInicial = Convert.ToDecimal(Console.ReadLine());
+        break;  
+    }
+    catch (FormatException)
+    { // Se o preço não for um número
+        Console.WriteLine("Por favor, digite um preço válido.");
+    }
+}
+
+
+while (true)
+{ // Loop para obter o preço por hora valído
+    try
+    {
+        Console.Write("\nAgora digite o preço por hora: ");
+        precoPorHora = Convert.ToDecimal(Console.ReadLine());
+        break;  
+    }
+    catch (FormatException)
+    { // Se o preço não for um número
+        Console.WriteLine("Por favor, digite um preço válido.");
+    }
+}
 
 // Instancia a classe Estacionamento, já com os valores obtidos anteriormente
-Estacionamento es = new Estacionamento(precoInicial, precoPorHora);
+Estacionamento parkingLot = new Estacionamento(precoInicial, precoPorHora);
 
 string opcao = string.Empty;
 bool exibirMenu = true;
@@ -32,19 +56,20 @@ while (exibirMenu)
     switch (Console.ReadLine())
     {
         case "1":
-            es.AdicionarVeiculo();
+            parkingLot.AdicionarVeiculo();
             break;
 
         case "2":
-            es.RemoverVeiculo();
+            parkingLot.RemoverVeiculo();
             break;
 
         case "3":
-            es.ListarVeiculos();
+            parkingLot.ListarVeiculos();
             break;
 
         case "4":
-            exibirMenu = false;
+            Console.WriteLine("Obrigado por utilizar os nossos serviços!");
+            Environment.Exit(0);
             break;
 
         default:
@@ -52,8 +77,6 @@ while (exibirMenu)
             break;
     }
 
-    Console.WriteLine("Pressione uma tecla para continuar");
+    Console.Write("Pressione uma tecla para continuar: ");
     Console.ReadLine();
 }
-
-Console.WriteLine("O programa se encerrou");
