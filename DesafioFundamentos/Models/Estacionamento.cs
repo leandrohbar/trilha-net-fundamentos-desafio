@@ -29,51 +29,43 @@ namespace DesafioFundamentos.Models
                 else // Verifica se a placa tem 3 letras, 1 número, 1 letra e 2 números
                 {
                     string verificacao = placa.Substring(0 , 3);
-                    
-                    if (verificacao.All(char.IsLetter))
-                    // Se tiver 3 letras no começo
-                    {
-                        string verificacao2 = placa[3].ToString();
-                        
-                        if (verificacao2.All(char.IsDigit))
-                        // Se tiver 1 número depois das 3 letras
-                        {
-                            string verificacao3 = placa[4].ToString();
-                            
-                            if (verificacao3.All(char.IsLetter))
-                            // Se tiver 1 letra depois do número
-                            {
-                                string verificacao4 = placa.Substring(5 , 2);
+                    string verificacao2 = placa[3].ToString();
+                    string verificacao3 = placa[4].ToString();
+                    string verificacao4 = placa.Substring(5 , 2);
 
-                                if (verificacao4.All(char.IsDigit))
-                                // Se tiver 2 números depois da letra
-                                {
-                                    veiculos.Add(placa);
-                                    break;
-                                }
-                                else
-                                { // Se não tiver 2 números depois da letra
-                                    Console.WriteLine("Placa inválida");
-                                    continue;
-                                }
-                            }
-                            else
-                            { // Se não tiver 1 letra depois do número
-                                Console.WriteLine("Placa inválida");
-                                continue;
-                            }
-                        }
-                        else
-                        { // Se não tiver 1 número depois das 3 letras
-                            Console.WriteLine("Placa inválida");
-                            continue;
-                        }
-                    }
-                    else
-                    { // Se não tiver 3 letras no começo
+                    if (!verificacao.All(char.IsLetter))
+                    // Se não tiver 3 letras no começo
+                    {
                         Console.WriteLine("Placa inválida");
                         continue;
-                    }    
+                    }
+                    
+                    else if (!verificacao2.All(char.IsDigit))
+                    // Se não tiver 1 número depois das 3 letras
+                    {
+                        Console.WriteLine("Placa inválida");
+                        continue;
+                    }
+                       
+                    else if (!verificacao3.All(char.IsLetter))
+                    // Se não tiver 1 letra depois do número
+                    {
+                        Console.WriteLine("Placa inválida");
+                        continue;
+                    }
+                    
+                    else if (!verificacao4.All(char.IsDigit))
+                    // Se não tiver 2 números depois da letra
+                    {
+                        Console.WriteLine("Placa inválida");
+                        continue;
+                    }
+                    
+                    else
+                    { // Se a placa for válida, adiciona na lista de veículos
+                        veiculos.Add(placa);
+                        break;
+                    }
                 }
             }
                 
